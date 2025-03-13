@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Drive Details{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow p-4">
+        <h2 class="text-primary text-center">{{ drive.company.name }} - {{ drive.job_role }}</h2>
+
+        <table class="table table-bordered mt-3">
+            <tr>
+                <th>Job Role</th>
+                <td>{{ drive.job_role }}</td>
+            </tr>
+            <tr>
+                <th>Company</th>
+                <td>{{ drive.company.name }}</td>
+            </tr>
+            <tr>
+                <th>Employment Type</th>
+                <td>{{ drive.get_employment_type_display }}</td>
+            </tr>
+            <tr>
+                <th>Salary Package</th>
+                <td>₹{{ drive.salary_package }}</td>
+            </tr>
+            <tr>
+                <th>Job Location</th>
+                <td>{{ drive.job_location }}</td>
+            </tr>
+            <tr>
+                <th>Bond Period</th>
+                <td>{% if drive.bond_period %}{{ drive.bond_period }} months{% else %}N/A{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Minimum CGPA Required</th>
+                <td>{{ drive.cgpa_requirement }}</td>
+            </tr>
+            <tr>
+                <th>Skills Required</th>
+                <td>{{ drive.skills_required }}</td>
+            </tr>
+            <tr>
+                <th>Backlog Allowed</th>
+                <td>{{ drive.backlog_allowed }}</td>
+            </tr>
+            <tr>
+                <th>Eligible Batch</th>
+                <td>{{ drive.batch_eligible }}</td>
+            </tr>
+            <tr>
+                <th>Selection Process</th>
+                <td>{{ drive.selection_process }}</td>
+            </tr>
+            <tr>
+                <th>Application Deadline</th>
+                <td>{{ drive.application_deadline }}</td>
+            </tr>
+            <tr>
+                <th>Drive Date</th>
+                <td>{{ drive.drive_date }}</td>
+            </tr>
+        </table>
+
+        <div class="text-center mt-3">
+            <a href="{% url 'drive_list' %}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

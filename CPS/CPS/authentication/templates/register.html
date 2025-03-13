@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h3 class="text-center">Register</h3>
+    <form method="POST" class="auth-form">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <input type="text" name="username" class="form-control" placeholder="Username" required>
+        </div>
+        
+        <div class="mb-3">
+            <input type="email" name="email" class="form-control" placeholder="Email" required>
+        </div>
+        
+        <div class="mb-3">
+            <input type="password" name="password1" class="form-control" placeholder="Password" required>
+        </div>
+        
+        <div class="mb-3">
+            <input type="password" name="password2" class="form-control" placeholder="Confirm Password" required>
+        </div>
+        
+        <div class="mb-3">
+            <select name="role" class="form-control" id="roleSelect" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="student">Student</option>
+                <option value="placement_officer">Placement Officer</option>
+                <option value="company">Company</option>
+            </select>
+        </div>
+
+        <div class="mb-3" id="studentIdField" style="display: none;">
+            <input type="text" name="student_id" class="form-control" placeholder="Enter Student ID">
+        </div>
+
+        <div class="mb-3" id="officerIdField" style="display: none;">
+            <input type="text" name="officer_id" class="form-control" placeholder="Enter Placement Officer ID">
+        </div>
+
+        <div class="mb-3" id="companyIdField" style="display: none;">
+            <input type="text" name="company_id" class="form-control" placeholder="Enter Company ID">
+        </div>
+        
+        <button type="submit" class="btn btn-primary w-100">Register</button>
+    </form>
+
+    <div class="form-footer text-center mt-3">
+        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
+</div>
+
+<script>
+    document.getElementById("roleSelect").addEventListener("change", function () {
+        let role = this.value;
+        document.getElementById("studentIdField").style.display = role === "student" ? "block" : "none";
+        document.getElementById("officerIdField").style.display = role === "placement_officer" ? "block" : "none";
+        document.getElementById("companyIdField").style.display = role === "company" ? "block" : "none";
+    });
+</script>
+{% endblock %}

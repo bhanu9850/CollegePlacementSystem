@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Home - College Placement System{% endblock %}
+
+{% block content %}
+<style>
+    .homepage {
+        margin: 40px auto;
+        max-width: 1300px;
+        text-align: center;
+    }
+    .nav-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    .nav-links a {
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+        color: #007bff;
+        cursor: pointer;
+    }
+    .card {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        padding: 20px;
+        background-color: #fff;
+        max-width: 800px;
+        margin: auto;
+    }
+    .card:hover {
+        transform: scale(1.02);
+    }
+    .hero {
+        background: linear-gradient(135deg,rgb(245, 247, 250),rgb(245, 247, 250));
+        color: black;
+        padding: 50px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        margin-bottom: 30px;
+    }
+    .section {
+        padding: 50px 20px;
+        margin-top: 30px;
+    }
+    .btn-primary {
+        margin-top: 15px;
+        padding: 10px 20px;
+    }
+</style>
+
+<div class="homepage">
+    <!-- Navigation Links -->
+    <a onclick="scrollToSection('about')">About</a>
+    <a onclick="scrollToSection('contact')">Contact</a>
+    <!-- Hero Section (Home) -->
+    <div id="home" class="hero">
+        <h2>Welcome to the College Placement System</h2>
+        <p>
+            A streamlined platform connecting students with recruiters for a seamless placement experience.
+        </p>
+    </div>
+
+    <!-- About Section -->
+    <div id="about" class="section card">
+        <h3>About This Project</h3>
+        <p>
+            The <strong>College Placement System</strong> is a comprehensive platform designed to streamline the campus recruitment process.  
+            It allows students to create and manage their profiles, track active company drives, and apply for placement opportunities.  
+            Companies can organize recruitment drives, review student applications, and select candidates efficiently.  
+            Administrators can oversee the entire placement process through a dedicated dashboard.  
+        </p>
+    </div>
+
+    <!-- Features Section -->
+    <div class="section card">
+        <h3>Key Features</h3>
+        <ul style = "text-align:left">
+            <li>Students can create/update profiles and apply for active placement drives.</li>
+            <li>Companies can post job drives and manage student applications.</li>
+            <li>Admins can oversee the placement process and view student dashboards.</li>
+            <li>Track applied and selected students for each drive.</li>
+        </ul>
+    </div>
+
+    <!-- Tech Stack Section -->
+    <div class="section card">
+        <h3>Tech Stack</h3>
+        <ul style="text-align: left;">
+            <li> <strong>Backend:</strong> Django, Python</li>
+            <li> <strong>Database:</strong> MySQL</li>
+            <li> <strong>Frontend:</strong> HTML, CSS, Bootstrap, JavaScript</li>
+            <li> <strong>Authentication:</strong> Django Auth, Permissions, Groups</li>
+            <li> <strong>Deployment:</strong> AWS, GitHub</li>
+        </ul>
+    </div>
+    <div class="section card">
+        <h3>Get Started</h3>
+        <p>Explore the latest placement opportunities and kickstart your career!</p>
+        {% if "Students" in user.groups.all|join:", " %}
+            <a href="{% url 'student_dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
+        {% endif %}
+    </div>
+    
+    <!-- Contact Section -->
+    <div id="contact" class="section card">
+        <h3>Contact Us</h3>
+        <p>If you have any questions or need support, feel free to reach out.</p>
+        <p>Email: <strong>support@collegeplacement.com</strong></p>
+        <p>Phone: <strong>+91 98765 43210</strong></p>
+    </div>
+
+    <!-- Call to Action -->
+    
+</div>
+
+<script>
+    function scrollToSection(sectionId) {
+        document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+{% endblock %}
