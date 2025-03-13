@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow p-4">
+        <h2 class="text-primary text-center mb-4">Admin Dashboard</h2>
+
+        <!-- Admin Overview Cards -->
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="card bg-info text-white shadow p-3">
+                    <h4>Total Students</h4>
+                    <h2><a href="{% url 'student_list' %}" style = "text-decoration:none; color:white;">{{ students_count }}</a></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-warning text-white shadow p-3">
+                    <h4>Total Users</h4>
+                    <h2>{{ total_users }}</h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-success text-white shadow p-3">
+                    <h4>Active Job Drives</h4>
+                    <h2>{{ active_drives }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <h4 class="text-secondary mt-5">Quick Actions</h4>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <a href="{% url 'company_create' %}" class="btn btn-outline-secondary btn-lg w-100">Manage Companies</a>
+            </div>
+            <div class="col-md-4">
+                <a href="{% url 'drive_create' %}" class="btn btn-outline-success btn-lg w-100">Manage Job Drives</a>
+            </div>
+        </div>
+
+        <!-- Recent Active Drives -->
+        <h4 class="text-secondary mt-5">Recent Active Drives</h4>
+        {% if active_drives_list %}
+        <table class="table table-bordered">
+            <thead class="table-primary">
+                <tr>
+                    <th>Company</th>
+                    <th>Job Role</th>
+                    <th>Application Deadline</th>
+                    <th>View Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for drive in active_drives_list %}
+                <tr>
+                    <td>{{ drive.company.name }}</td>
+                    <td>{{ drive.job_role }}</td>
+                    <td>{{ drive.application_deadline }}</td>
+                    <td>
+                        <a href="{% url 'drive_detail' drive.id %}" class="btn btn-sm btn-info">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p class="text-muted">No active job drives available.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Active Drives{% endblock %}
+{% block content %}
+<h2>Active Drives</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Company</th>
+            <th>Job Role</th>
+            <th>Salary</th>
+            <th>Application Deadline</th>
+            <th>Drive Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for drive in active_drives %}
+        <tr>
+            <td>{{ drive.company.name }}</td>
+            <td>{{ drive.job_role }} </td>
+            <td>{{ drive.salary_package }} LPA</td>
+            {% load tz %}
+            {% now "Y-m-d" as today_date %}
+            <td>
+                {{ drive.application_deadline }} 
+                <span class="{% if drive.is_expired %}text-danger{% else %}text-success{% endif %}">
+                    {{ drive.status }}
+                </span>
+            </td>
+            
+            <td>{{ drive.drive_date }}</td>
+            <td>
+                {% if not drive.is_expired and not drive.applied_by_current_user %}
+                    <form method="post" action="{% url 'apply_drive' drive.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Apply</button>
+                    </form>
+                {% elif drive.applied_by_current_user  %}
+                    <span class="text-success">Applied</span>
+                {% else %}
+                    <span class="btn btn-info btn-sm">Expired</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="text-center">No Active drives available</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

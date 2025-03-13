@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Company Details{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow p-4">
+        <h2 class="text-primary text-center">{{ company.name }}</h2>
+
+        <table class="table table-bordered mt-3">
+            <tr>
+                <th>Industry Type</th>
+                <td>{{ company.get_industry_type_display }}</td>
+            </tr>
+            <tr>
+                <th>Location</th>
+                <td>{{ company.location }}</td>
+            </tr>
+            <tr>
+                <th>Website</th>
+                <td>
+                    {% if company.website %}
+                        <a href="{{ company.website }}" target="_blank">{{ company.website }}</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Contact Person</th>
+                <td>{{ company.contact_person }}</td>
+            </tr>
+            <tr>
+                <th>Contact Email</th>
+                <td><a href="mailto:{{ company.contact_email }}">{{ company.contact_email }}</a></td>
+            </tr>
+            <tr>
+                <th>Contact Phone</th>
+                <td>{{ company.contact_phone }}</td>
+            </tr>
+            <tr>
+                <th>Created At</th>
+                <td>{{ company.created_at }}</td>
+            </tr>
+        </table>
+
+        <div class="text-center mt-3">
+            <a href="{% url 'company_list' %}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
